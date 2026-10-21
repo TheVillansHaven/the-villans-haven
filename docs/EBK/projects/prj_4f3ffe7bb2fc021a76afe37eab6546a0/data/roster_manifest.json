@@ -71,11 +71,11 @@
           "url": ""
         }
       },
-      "name": "YOUR_VRC_DISPLAY_NAME",
+      "name": "黒神 緋玲",
       "portraitUrl": "https://thevillanshaven.github.io/the-villans-haven/EBK/projects/prj_4f3ffe7bb2fc021a76afe37eab6546a0/images/portraits/owner/slot0.png",
       "roleType": "owner",
       "showArmband": true,
-      "showName": true,
+      "showName": false,
       "showPortrait": true,
       "slot": 0,
       "spawnKey": "staff_room"

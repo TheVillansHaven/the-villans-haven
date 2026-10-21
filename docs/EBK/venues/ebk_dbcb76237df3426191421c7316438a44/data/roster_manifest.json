@@ -26,7 +26,7 @@
   "members": [
     {
       "accessLevel": 4,
-      "category": "Owner",
+      "category": "Master",
       "enabled": true,
       "hasPermission": true,
       "images": {
@@ -73,7 +73,7 @@
       },
       "name": "黒神 緋玲",
       "portraitUrl": "https://thevillanshaven.github.io/the-villans-haven/EBK/projects/prj_4f3ffe7bb2fc021a76afe37eab6546a0/images/portraits/owner/slot0.png",
-      "roleType": "owner",
+      "roleType": "Master",
       "showArmband": true,
       "showName": false,
       "showPortrait": true,
@@ -131,7 +131,7 @@
       },
       "name": "Raim119",
       "portraitUrl": "",
-      "roleType": "manager",
+      "roleType": "Cypher",
       "showArmband": true,
       "showName": true,
       "showPortrait": true,
@@ -143,9 +143,9 @@
   "roleTypes": [
     {
       "accessLevel": 0,
-      "id": "guest",
-      "label": "Guest",
-      "styleId": "guest"
+      "id": "Traveler",
+      "label": "Traveler",
+      "styleId": "Traveler"
     },
     {
       "accessLevel": 1,
@@ -155,9 +155,9 @@
     },
     {
       "accessLevel": 2,
-      "id": "castLeader",
-      "label": "CastLeader",
-      "styleId": "castLeader"
+      "id": "Villan",
+      "label": "Villan",
+      "styleId": "Villan"
     },
     {
       "accessLevel": 2,
@@ -185,9 +185,9 @@
     },
     {
       "accessLevel": 3,
-      "id": "staff",
-      "label": "Staff",
-      "styleId": "staff"
+      "id": "Guardian",
+      "label": "Guardian",
+      "styleId": "Guardian"
     },
     {
       "accessLevel": 3,
@@ -197,15 +197,15 @@
     },
     {
       "accessLevel": 4,
-      "id": "owner",
-      "label": "Owner",
-      "styleId": "owner"
+      "id": "Master",
+      "label": "Master",
+      "styleId": "Master"
     },
     {
       "accessLevel": 4,
-      "id": "manager",
-      "label": "Manager",
-      "styleId": "manager"
+      "id": "Cypher",
+      "label": "Cypher",
+      "styleId": "Cypher"
     },
     {
       "accessLevel": 4,

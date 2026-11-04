@@ -1,20 +1,6 @@
 {
   "eventSchedule": {
-    "exceptions": [
-      {
-        "countAsVisit": true,
-        "countStaffWork": true,
-        "date": "2026-10-31",
-        "duration": 90,
-        "enabled": true,
-        "exportToSheets": true,
-        "kind": "Regular",
-        "sourceId": "evt_7674bba09ff4c075fe2abc260cf5ae91",
-        "start": "22:20",
-        "title": "The Villan's Haven",
-        "type": "臨時営業"
-      }
-    ],
+    "exceptions": [],
     "projectId": "prj_4f3ffe7bb2fc021a76afe37eab6546a0",
     "rotationMinutes": 15,
     "rules": [],

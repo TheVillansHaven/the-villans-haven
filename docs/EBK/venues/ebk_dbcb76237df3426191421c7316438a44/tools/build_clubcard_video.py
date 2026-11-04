@@ -165,7 +165,7 @@ def sheet_image(paths, width=SHEET_WIDTH, height=SHEET_HEIGHT):
     cell UV back onto the normal card surface, restoring the card's display aspect
     while allowing ten cards to share one captured VideoRoster texture.
     """
-    image = Image.new('RGB', (width, height), 'black')
+    image = Image.new('RGBA', (width, height), (0,0,0,0))
     resampling = getattr(Image, 'Resampling', Image).LANCZOS
     for index, path in enumerate(paths):
         if index >= CARDS_PER_SHEET:
@@ -180,9 +180,7 @@ def sheet_image(paths, width=SHEET_WIDTH, height=SHEET_HEIGHT):
         y1 = (row + 1) * height // SHEET_ROWS
         with Image.open(path) as source:
             frame = ImageOps.exif_transpose(source).convert('RGBA').resize((x1 - x0, y1 - y0), resampling)
-            cell = Image.new('RGB', (x1 - x0, y1 - y0), 'black')
-            cell.paste(frame, (0, 0), frame)
-            image.paste(cell, (x0, y0))
+            image.paste(frame, (x0, y0))
     return image
 
 
@@ -280,14 +278,32 @@ def build(root, base_url):
         'columns': SHEET_COLUMNS, 'rows': SHEET_ROWS, 'cardsPerSheet': CARDS_PER_SHEET,
         'assignmentMode': assignment_mode
     }
+    content_fingerprint = hashlib.sha256(json.dumps({
+        'cards':cards,'commonTextures':common_hashes,'sheetLayout':normalized_layout,
+        'format':'ebk-clubcards-v2','encoding':'ebk-dual-matte-sbs-srgb-v1'
+    },ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    previous = None
+    for candidate in [root/'.ebk_previous_clubcards.json',root/'docs/ebk-clubcards/manifest.json',root/'ebk-clubcards/manifest.json']:
+        if candidate.is_file():
+            previous=json.loads(candidate.read_text(encoding='utf-8-sig'))
+            break
+    effective_revision=manifest['revision']
+    if isinstance(previous,dict) and type(previous.get('revision')) is int:
+        prior_revision=previous['revision']
+        effective_revision=max(effective_revision,prior_revision if previous.get('contentFingerprint')==content_fingerprint else prior_revision+1)
+    if not 1<=effective_revision<=1000000000:
+        raise ValueError('カード更新番号が範囲外です')
     generation = hashlib.sha256(json.dumps({
         'cards': cards,
         'commonTextures': common_hashes,
-        'revision': manifest['revision'],
+        'revision': effective_revision,
         'format': 'ebk-clubcards-v2',
+        'encoding': 'ebk-dual-matte-sbs-srgb-v1',
         'sheetLayout': normalized_layout
     }, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()).hexdigest()[:32]
     result = copy.deepcopy(manifest)
+    result['revision']=effective_revision
+    result['contentFingerprint']=content_fingerprint
     result['sheetLayout'] = normalized_layout
     result['cards'] = cards
     generated_common = {}
@@ -302,6 +318,8 @@ def build(root, base_url):
             'sampleTimeSeconds': sample_frame / 30
         }
     result['videoRoster'] = {'status': 'ready', 'generation': generation, 'format': 'ebk-clubcards-v2',
+                            'encoding': 'ebk-dual-matte-sbs-srgb-v1',
+                            'encodedWidth': SHEET_WIDTH*2, 'encodedHeight': SHEET_HEIGHT,
                             'videoUrl': base_url + '/ebk-clubcards/cards.mp4',
                             'frameMapUrl': base_url + '/ebk-clubcards/frame_map.txt',
                             'fps': 30, 'framesPerEntry': 3, 'sampleFrame': 1,
@@ -327,7 +345,7 @@ def build(root, base_url):
             sheet_image(sheet_paths[sheet]).save(target_sheet)
             sheet_frames.append(target_sheet)
         encode([header] + sheet_frames + [item[3] for item in common_images],
-               stage / 'cards.mp4', SHEET_WIDTH, SHEET_HEIGHT)
+               stage / 'cards.mp4', SHEET_WIDTH, SHEET_HEIGHT, True)
         result['videoRoster']['sha256'] = hashlib.sha256((stage / 'cards.mp4').read_bytes()).hexdigest()
         (stage / 'manifest.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         lines = ['1|clubcard|generation|0|generation|1|1|0|0|frames=3|sampleFrame=1|sample=0.033333|bad=0']

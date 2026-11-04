@@ -14,16 +14,9 @@ on:
           - 'guest'
           - 'regular'
           - 'castLeader'
-          - 'upperCast'
-          - 'downerCast'
-          - 'conditionalCast'
           - 'staffLeader'
-          - 'staff'
-          - 'switchCast'
           - 'owner'
           - 'manager'
-          - 'operator'
-          - 'assistant'
 permissions:
   contents: write
 concurrency:

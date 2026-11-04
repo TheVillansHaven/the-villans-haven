@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "title": "EBK Sample ClubCard",
   "sheetLayout": {
     "columns": 5,
@@ -153,8 +153,11 @@
   ],
   "videoRoster": {
     "status": "ready",
-    "generation": "5100b062b330d7a6c8660e7ffc2601d2",
+    "generation": "7e56a217414c19be120258ae6876547f",
     "format": "ebk-clubcards-v2",
+    "encoding": "ebk-dual-matte-sbs-srgb-v1",
+    "encodedWidth": 2560,
+    "encodedHeight": 768,
     "videoUrl": "https://thevillanshaven.github.io/the-villans-haven/EBK/projects/prj_4f3ffe7bb2fc021a76afe37eab6546a0/ebk-clubcards/cards.mp4",
     "frameMapUrl": "https://thevillanshaven.github.io/the-villans-haven/EBK/projects/prj_4f3ffe7bb2fc021a76afe37eab6546a0/ebk-clubcards/frame_map.txt",
     "fps": 30,
@@ -188,10 +191,11 @@
         "sampleTimeSeconds": 0.3333333333333333
       }
     },
-    "sha256": "4df019f929f4e475cd8ee4d739a995e32eda3938d16700f0137a2fad2511e61c"
+    "sha256": "e39622dce35fff842ab31f73431d5f4d319024898f6993f24490ec2672cb89d3"
   },
   "commonTextures": {
     "cardBackPath": "images/clubcards/common/cardback.png",
     "packagePath": "images/clubcards/common/package.png"
-  }
+  },
+  "contentFingerprint": "a4f1c4f3a61d4324f22f4abe045f3844c6040a22fa0e4848337bacba174fd15b"
 }

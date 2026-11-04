@@ -12,11 +12,11 @@
       "videoUrl": "",
       "slideUrl": "",
       "images": [],
-      "format": "ebk-room-slides-rgb-v1",
-      "alphaMode": "opaque",
+      "format": "ebk-dual-matte-sbs-srgb-v1",
+      "alphaMode": "dual-matte-sbs-srgb-v1",
       "logicalWidth": 1920,
       "logicalHeight": 1080,
-      "encodedWidth": 1920,
+      "encodedWidth": 3840,
       "encodedHeight": 1080
     }
   ]
